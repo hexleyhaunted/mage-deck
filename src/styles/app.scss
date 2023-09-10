@@ -1,0 +1,77 @@
+@import "./index";
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $night;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $night;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $moss-green;
+  }
+}
+
+#cards-section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 32px;
+}
+
+#shuffle-button {
+  background: $moss-green;
+  color: inherit;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: 0.1s ease-out;
+  &:hover {
+    background: $reseda-green;
+  }
+  &:active {
+    background: $beige;
+    color: $eerie-black;
+  }
+}
+
+#cards-wrapper {
+  display: flex;
+  column-gap: 16px;
+  .card {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+  }
+}
+
+#rules-section {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 32px;
+  padding: 10%;
+  background-color: $night;
+  article {
+    font-size: 24px;
+  }
+}

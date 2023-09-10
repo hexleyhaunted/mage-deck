@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+$night: #121113;
+$eerie-black: #222725;
+$reseda-green: #717F62;
+$moss-green: #899878;
+$beige: #E4E6C3;
+$baby-powder: #F7F7F2;
+
+:root {
+  * {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  body {
+    background-color: #222725;
+    color: $beige;
+    width: 100vw;
+  }
+}

@@ -1,25 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import './styles/app.scss';
+import imageJson from "./imageUrls.json";
+import {randomInt} from "crypto";
 
 function App() {
+    const images = imageJson.images;
+    const [selectedImages, setSelectedImages] = useState<string[]>([]);
+console.log(images);
+    useEffect(() => {
+        shuffle();
+        }, []);
+
+    function shuffle() {
+        setSelectedImages(get3RandomImages());
+    }
+
+    function get3RandomImages() {
+        const updatedSelectedImages: string[] = [];
+        while(updatedSelectedImages.length < 3) {
+            const rIndex = Math.floor(Math.random() * images.length);
+            const rImage = images[rIndex];
+            if(!updatedSelectedImages.includes(rImage)) {
+                updatedSelectedImages.push(rImage);
+            }
+        }
+        return updatedSelectedImages;
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+          <div id={"cards-section"}>
+              <div id={"cards-wrapper"}>
+                  {selectedImages?.map(image => <img src={image} className={"card"}/>)}
+              </div>
+              <button id={"shuffle-button"} onClick={shuffle}>shuffle</button>
+          </div>
+          <div id={"rules-section"}>
+              <h1>The Game</h1>
+              <article>
+                  Click shuffle and get 3 random cards. You then read them like tarot card to get 3 concepts
+                  or ideas that you can combine into something you can make. Once you've got your cards don't try to
+                  swap or reshuffle them (unless you keep getting the same card), the idea is to be creative and that means making the best of what you have.
+                  You can be fairly loose with what you make, but it must be something that you can show. You can't
+                  just come up with a clever idea and not go through with it. Sometimes your solution with be something
+                  easy and silly, sometimes it's be a more complex project that takes days. That's okay. The whole point
+                  is to expand your comfort zone, so trying new ways and approaches is a good thing.
+                  Have fun! - Star ★
+              </article>
+          </div>
+      </div>
   );
 }
 
