@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './styles/app.scss';
-import imageJson from "./imageUrls.json";
-import {randomInt} from "crypto";
+import imageJson from "./imageDeck.json";
 
 function App() {
-    const images = imageJson.images;
-    const [selectedImages, setSelectedImages] = useState<string[]>([]);
-console.log(images);
+    const images = Object.entries(imageJson.images);
+    const [selectedImages, setSelectedImages] = useState<[string, string][]>([]);
+
     useEffect(() => {
         shuffle();
         }, []);
@@ -16,11 +15,11 @@ console.log(images);
     }
 
     function get3RandomImages() {
-        const updatedSelectedImages: string[] = [];
+        const updatedSelectedImages: [string, string][] = [];
         while(updatedSelectedImages.length < 3) {
             const rIndex = Math.floor(Math.random() * images.length);
             const rImage = images[rIndex];
-            if(!updatedSelectedImages.includes(rImage)) {
+            if(!updatedSelectedImages.find(([name, url]) => rImage[0] === name)) {
                 updatedSelectedImages.push(rImage);
             }
         }
@@ -31,7 +30,7 @@ console.log(images);
       <div>
           <div id={"cards-section"}>
               <div id={"cards-wrapper"}>
-                  {selectedImages?.map(image => <img src={image} className={"card"}/>)}
+                  {selectedImages?.map(([name, url]) => <img src={url} className={"card"} alt={name}/>)}
               </div>
               <button id={"shuffle-button"} onClick={shuffle}>shuffle</button>
           </div>
