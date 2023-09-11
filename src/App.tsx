@@ -5,6 +5,7 @@ import imageJson from "./imageDeck.json";
 function App() {
     const images = Object.entries(imageJson.images);
     const [selectedImages, setSelectedImages] = useState<[string, string][]>([]);
+    const [usedImages, setUsedImages] = useState<[string, string][]>([]);
 
     useEffect(() => {
         shuffle();
@@ -14,16 +15,30 @@ function App() {
         setSelectedImages(get3RandomImages());
     }
 
+    function isImageAvailable(image: [string, string], arraysToCheck: [string, string][][]) {
+        for(const array of arraysToCheck) {
+            const isImageFound = array.find(([name, url]) => image[0] === name) !== undefined;
+            if(isImageFound) return false;
+        }
+        return true;
+    }
+
     function get3RandomImages() {
         const updatedSelectedImages: [string, string][] = [];
+        if(usedImages.length > images.length - 4) resetUsedImages();
         while(updatedSelectedImages.length < 3) {
             const rIndex = Math.floor(Math.random() * images.length);
             const rImage = images[rIndex];
-            if(!updatedSelectedImages.find(([name, url]) => rImage[0] === name)) {
+            if(isImageAvailable(rImage, [updatedSelectedImages, usedImages])) {
                 updatedSelectedImages.push(rImage);
             }
         }
+        setUsedImages((prevState) => [...prevState, ...updatedSelectedImages]);
         return updatedSelectedImages;
+    }
+
+    function resetUsedImages() {
+        setUsedImages(() => []);
     }
 
   return (
